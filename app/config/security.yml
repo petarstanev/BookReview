@@ -12,15 +12,15 @@ security:
 
     firewalls:
         main:
-            pattern: ^/
+            anonymous:    ~
+            logout:       ~
+
             form_login:
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
-                # if you are using Symfony < 2.8, use the following config instead:
-                # csrf_provider: form.csrf_provider
 
-            logout:       true
-            anonymous:    true
+            remember_me:
+                secret: '%secret%'
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
