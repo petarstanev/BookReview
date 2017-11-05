@@ -10,39 +10,51 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
 <body>
-
-<header class="header">
-    <h1 class="logo">Book review</h1>
-    <ul class="navi">
-        <li class="search"><a href="#" class="js-header-search-toggle"><i class="fa fa-search"></i></a></li>
-        {% if is_granted('ROLE_USER') %}
-            <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
-        {% else %}
-            <li><a href="{{ path('fos_user_security_login') }}">Login</a></li>
-        {% endif %}
-    </ul>
-</header>
-
-<div class="main-content">
-    <h1>Hello, world!</h1>
-    <div class="alert alert-success"> working</div>
-    {% for msg in app.session.flashBag.get('success') %}
-        <div class="alert alert-success">
-            {{ msg }}
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Book Review</a>
         </div>
-    {% endfor %}
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if is_granted('ROLE_USER') %}
+                    <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ path('fos_user_security_login') }}">Login</a></li>
+                {% endif %}
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+<div class="container">
+    <div class="main-content">
+        {% for msg in app.session.flashBag.get('success') %}
+            <div class="alert alert-success">
+                {{ msg }}
+            </div>
+        {% endfor %}
 
-    {% block body %}{% endblock %}
+        {% block body %}{% endblock %}
+    </div>
+    <div class="footer">
+        <p class="footer-text">Made by <a href="mailto:p.i.stanev@edu.salford.ac.uk">Petar Stanev</a> for <a href="www.salford.ac.uk">University of Salford</a></p>
+    </div>
 </div>
-
-<div class="footer">
-    <p class="footer-text">Made by <a href="mailto:p.i.stanev@edu.salford.ac.uk">Petar Stanev</a> for <a href="www.salford.ac.uk">University of Salford</a></p>
-</div>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
