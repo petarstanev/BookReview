@@ -36,6 +36,7 @@
                     <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
                 {% else %}
                     <li><a href="{{ path('fos_user_security_login') }}">Login</a></li>
+                    <li><a href="{{ path('fos_user_registration_register') }}">Register</a></li>
                 {% endif %}
             </ul>
         </div><!--/.nav-collapse -->
@@ -51,10 +52,15 @@
 
         {% block body %}{% endblock %}
     </div>
-    <div class="footer">
-        <p class="footer-text">Made by <a href="mailto:p.i.stanev@edu.salford.ac.uk">Petar Stanev</a> for <a href="www.salford.ac.uk">University of Salford</a></p>
-    </div>
 </div>
+
+<footer>
+    <div class="container">
+        <div class="row"><p class="footer-text">Made by <a href="mailto:p.i.stanev@edu.salford.ac.uk">Petar Stanev</a> for <a href="www.salford.ac.uk">University of Salford</a></p>
+    </div>
+</footer>
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
