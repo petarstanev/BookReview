@@ -153,5 +153,10 @@ class Book
     {
         $this->reviews = $reviews;
     }
+
+    function __toString()
+    {
+        return $this->title;
+    }
 }
 

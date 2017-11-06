@@ -1,0 +1,24 @@
+book_index:
+    path:     /
+    defaults: { _controller: "BookReviewBundle:Book:index" }
+    methods:  GET
+
+book_show:
+    path:     /{id}/show
+    defaults: { _controller: "BookReviewBundle:Book:show" }
+    methods:  GET
+
+book_new:
+    path:     /new
+    defaults: { _controller: "BookReviewBundle:Book:new" }
+    methods:  [GET, POST]
+
+book_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BookReviewBundle:Book:edit" }
+    methods:  [GET, POST]
+
+book_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BookReviewBundle:Book:delete" }
+    methods:  DELETE

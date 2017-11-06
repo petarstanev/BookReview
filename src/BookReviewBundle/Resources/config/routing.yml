@@ -1,3 +1,7 @@
-book_review_homepage:
-    path:     /hello
-    defaults: { _controller: BookReviewBundle:Default:index }
+book_review_book:
+    resource: "@BookReviewBundle/Resources/config/routing/book.yml"
+    prefix:   /book
+
+book_review_review:
+        resource: "@BookReviewBundle/Resources/config/routing/review.yml"
+        prefix:   /review

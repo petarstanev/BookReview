@@ -29,11 +29,10 @@ class Review
     private $comment;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="userID", type="integer")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="reviews")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $userID;
+    private $user;
 
     /**
      * @var \DateTime
@@ -83,30 +82,6 @@ class Review
     }
 
     /**
-     * Set userID
-     *
-     * @param integer $userID
-     *
-     * @return Review
-     */
-    public function setUserID($userID)
-    {
-        $this->userID = $userID;
-
-        return $this;
-    }
-
-    /**
-     * Get userID
-     *
-     * @return int
-     */
-    public function getUserID()
-    {
-        return $this->userID;
-    }
-
-    /**
      * Set createdDate
      *
      * @param \DateTime $createdDate
@@ -144,6 +119,22 @@ class Review
     public function setBook($book)
     {
         $this->book = $book;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
     }
 }
 
