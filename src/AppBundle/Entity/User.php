@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\Common\Collections\ArrayCollection;
 /**
  * User
  *
@@ -25,11 +26,17 @@ class User extends BaseUser
     private $reviews;
 
     /**
+     * @ORM\OneToMany(targetEntity="BookReviewBundle\Entity\Book", mappedBy="user")
+     */
+    private $books;
+
+    /**
      * User constructor.
      */
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
+        $this->books = new ArrayCollection();
     }
 
     /**
@@ -46,6 +53,22 @@ class User extends BaseUser
     public function setReviews($reviews)
     {
         $this->reviews = $reviews;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBooks()
+    {
+        return $this->books;
+    }
+
+    /**
+     * @param mixed $books
+     */
+    public function setBooks($books)
+    {
+        $this->books = $books;
     }
 
 

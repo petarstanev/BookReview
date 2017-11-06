@@ -49,6 +49,12 @@ class Book
     private $reviews;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="books")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
+
+    /**
      * Book constructor.
      */
     public function __construct()
@@ -152,6 +158,22 @@ class Book
     public function setReviews($reviews)
     {
         $this->reviews = $reviews;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
     }
 
     function __toString()

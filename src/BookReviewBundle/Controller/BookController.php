@@ -34,7 +34,10 @@ class BookController extends Controller
     public function newAction(Request $request)
     {
         $book = new Book();
+        $currentUser = $this->getUser();
+        $book->setUser($currentUser);
         $form = $this->createForm('BookReviewBundle\Form\BookType', $book);
+        $form->remove('user');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
