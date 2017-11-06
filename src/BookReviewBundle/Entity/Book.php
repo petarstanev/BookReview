@@ -2,6 +2,7 @@
 
 namespace BookReviewBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,6 +42,19 @@ class Book
      * @ORM\Column(name="summary", type="text")
      */
     private $summary;
+
+    /**
+     * @ORM\OneToMany(targetEntity="BookReviewBundle\Entity\Review", mappedBy="book")
+     */
+    private $reviews;
+
+    /**
+     * Book constructor.
+     */
+    public function __construct()
+    {
+        $this->reviews = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -122,6 +136,22 @@ class Book
     public function getSummary()
     {
         return $this->summary;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReviews()
+    {
+        return $this->reviews;
+    }
+
+    /**
+     * @param mixed $reviews
+     */
+    public function setReviews($reviews)
+    {
+        $this->reviews = $reviews;
     }
 }
 

@@ -43,12 +43,10 @@ class Review
     private $createdDate;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="bookID", type="integer")
+     * @ORM\ManyToOne(targetEntity="BookReviewBundle\Entity\Book", inversedBy="reviews")
+     * @ORM\JoinColumn(name="book_id", referencedColumnName="id")
      */
-    private $bookID;
-
+    private $book;
 
     /**
      * Get id
@@ -133,27 +131,19 @@ class Review
     }
 
     /**
-     * Set bookID
-     *
-     * @param integer $bookID
-     *
-     * @return Review
+     * @return mixed
      */
-    public function setBookID($bookID)
+    public function getBook()
     {
-        $this->bookID = $bookID;
-
-        return $this;
+        return $this->book;
     }
 
     /**
-     * Get bookID
-     *
-     * @return int
+     * @param mixed $book
      */
-    public function getBookID()
+    public function setBook($book)
     {
-        return $this->bookID;
+        $this->book = $book;
     }
 }
 
