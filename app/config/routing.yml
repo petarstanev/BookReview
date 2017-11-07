@@ -2,6 +2,10 @@ book_review_book:
     resource: "@BookReviewBundle/Controller/BookController.php"
     type:     annotation
 
+book_review_book:
+    resource: "@BookReviewBundle/Controller/BookController.php"
+    type:     annotation
+
 book_review:
     resource: "@BookReviewBundle/Resources/config/routing.yml"
     prefix:   /

@@ -14,9 +14,9 @@ class BookType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')->add('author')->add('summary')->add('imageName')->add('imageSize')->add('user')->add('imageFile', VichImageType::class, [
+        $builder->add('title')->add('author')->add('summary')->add('imageFile', VichImageType::class, [
             'required' => false,
-            'allow_delete' => true,
+            'allow_delete' => false,
         ]);
     }
     /**

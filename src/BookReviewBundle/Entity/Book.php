@@ -58,7 +58,7 @@ class Book
 
     /**
      *
-     * @Vich\UploadableField(mapping="product_image", fileNameProperty="imageName", size="imageSize")
+     * @Vich\UploadableField(mapping="product_image", fileNameProperty="imageName")
      *
      * @var File
      */
@@ -70,13 +70,6 @@ class Book
      * @var string
      */
     private $imageName;
-
-    /**
-     * @ORM\Column(type="integer")
-     *
-     * @var integer
-     */
-    private $imageSize;
 
     /**
      * Book constructor.
@@ -257,24 +250,5 @@ class Book
         return $this->imageName;
     }
 
-    /**
-     * @param integer $imageSize
-     *
-     * @return Product
-     */
-    public function setImageSize($imageSize)
-    {
-        $this->imageSize = $imageSize;
-
-        return $this;
-    }
-
-    /**
-     * @return integer|null
-     */
-    public function getImageSize()
-    {
-        return $this->imageSize;
-    }
 }
 
