@@ -6,29 +6,24 @@
     <table>
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Title</th>
                 <th>Author</th>
                 <th>Summary</th>
-                <th>Actions</th>
+                <th>Show</th>
+                <th>Edit</th>
             </tr>
         </thead>
         <tbody>
         {% for book in books %}
             <tr>
-                <td><a href="{{ path('book_show', { 'id': book.id }) }}">{{ book.id }}</a></td>
                 <td>{{ book.title }}</td>
                 <td>{{ book.author }}</td>
                 <td>{{ book.summary }}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('book_show', { 'id': book.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('book_edit', { 'id': book.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    <a href="{{ path('book_show', { 'id': book.id }) }}">show</a>
+                </td>
+                <td>
+                    <a href="{{ path('book_edit', { 'id': book.id }) }}">edit</a>
                 </td>
             </tr>
         {% endfor %}

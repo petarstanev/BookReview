@@ -22,3 +22,8 @@ book_delete:
     path:     /{id}/delete
     defaults: { _controller: "BookReviewBundle:Book:delete" }
     methods:  DELETE
+
+book_review:
+  path:     /{bookId}/review
+  defaults: { _controller: "BookReviewBundle:Review:new" }
+  methods:  [GET, POST]

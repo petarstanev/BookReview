@@ -2,6 +2,7 @@
 
 namespace BookReviewBundle\Controller;
 
+use BookReviewBundle\Entity\Book;
 use BookReviewBundle\Entity\Review;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,10 +32,22 @@ class ReviewController extends Controller
      * Creates a new review entity.
      *
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $bookId = 0)
     {
         $review = new Review();
+        $currentUser = $this->getUser();
+        $review->setUser($currentUser);
+        $review->setCreatedDate(new \DateTime());
+        if ( $bookId > 0){
+            $bookRepo = $this->getDoctrine()->getRepository('BookReviewBundle:Book');
+
+            $selectedBook = $bookRepo->find($bookId);
+            $review->setBook($selectedBook);
+        }
+
         $form = $this->createForm('BookReviewBundle\Form\ReviewType', $review);
+        $form->remove('user');
+        $form->remove('createdDate');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -50,6 +63,8 @@ class ReviewController extends Controller
             'form' => $form->createView(),
         ));
     }
+
+
 
     /**
      * Finds and displays a review entity.
@@ -72,7 +87,10 @@ class ReviewController extends Controller
     public function editAction(Request $request, Review $review)
     {
         $deleteForm = $this->createDeleteForm($review);
+        $currentUser = $this->getUser();
+        $review->setUser($currentUser);
         $editForm = $this->createForm('BookReviewBundle\Form\ReviewType', $review);
+        $editForm->remove('user');
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

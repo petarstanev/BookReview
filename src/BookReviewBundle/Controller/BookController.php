@@ -37,7 +37,7 @@ class BookController extends Controller
         $currentUser = $this->getUser();
         $book->setUser($currentUser);
         $form = $this->createForm('BookReviewBundle\Form\BookType', $book);
-        $form->remove('user');
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -76,6 +76,7 @@ class BookController extends Controller
     {
         $deleteForm = $this->createDeleteForm($book);
         $editForm = $this->createForm('BookReviewBundle\Form\BookType', $book);
+        $editForm->remove('user');
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
