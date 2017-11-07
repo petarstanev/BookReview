@@ -9,22 +9,29 @@
                     <h2>{{ book.author }}</h2>
                     <img class="img-thumbnail" src="{{ vich_uploader_asset(book, 'imageFile') }}" alt="{{ book.title }}" />
                     <p>{{ book.summary }}</p>
-                    <div class="well">
-                        <h4 class="text-center">Book options</h4>
-                        <a href="{{ path('book_edit', { 'id': book.id }) }}" class="btn btn-block btn-warning">Edit</a>
-                        {{ form_start(delete_form) }}
-                        <input class="btn btn-block btn-danger" type="submit" value="Delete">
-                        {{ form_end(delete_form) }}
-                    </div>
                 </div>
                 <div class="col-md-6">
-                    <h2 contenteditable="true" class="text-center">Reviews</h2>
+                    <h2 class="text-center">Reviews</h2>
                     {% for review in book.reviews %}
                         <blockquote>
                             <p>{{ review.comment }}</p>
                             <footer>{{ review.user }}</footer>
                         </blockquote>
                     {% endfor %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 well">
+                  
+                        <h4 class="text-center">Book options</h4>
+                        <a href="{{ path('book_edit', { 'id': book.id }) }}" class="btn btn-block btn-warning">Edit</a>
+                        {{ form_start(delete_form) }}
+                        <input class="btn btn-block btn-danger" type="submit" value="Delete">
+                        {{ form_end(delete_form) }}
+
+                </div>
+                <div class="col-md-6">
+                    <a class="btn btn-block btn-info">Create a review</a>
                 </div>
             </div>
         </div>
