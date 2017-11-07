@@ -37,4 +37,9 @@
             {{ form_end(delete_form) }}
         </li>
     </ul>
+
+    {% for review in book.reviews %}
+            <h2>{{ review.comment }}</h2>
+    {% endfor %}
+
 {% endblock %}

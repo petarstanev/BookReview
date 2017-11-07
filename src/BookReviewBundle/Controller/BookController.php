@@ -60,7 +60,11 @@ class BookController extends Controller
      */
     public function showAction(Book $book)
     {
+        $em = $this->getDoctrine()->getManager();
+        $em->refresh($book);
         $deleteForm = $this->createDeleteForm($book);
+
+       $reviewForm = $this->createForm('BookReviewBundle\Form\BookType', $book);
 
         return $this->render('book/show.html.twig', array(
             'book' => $book,
