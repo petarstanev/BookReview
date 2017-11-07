@@ -1,45 +1,33 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Book</h1>
-
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ book.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ book.title }}</td>
-            </tr>
-            <tr>
-                <th>Author</th>
-                <td>{{ book.author }}</td>
-            </tr>
-            <tr>
-                <th>Summary</th>
-                <td>{{ book.summary }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('book_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('book_edit', { 'id': book.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
-
-    {% for review in book.reviews %}
-            <h2>{{ review.comment }}</h2>
-    {% endfor %}
-
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>{{ book.title }}</h1>
+                    <h2>{{ book.author }}</h2>
+                    <img src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png"
+                         class="img-responsive">
+                    <p>{{ book.summary }}</p>
+                    <div class="well">
+                        <h4 class="text-center">Book options</h4>
+                            <a href="{{ path('book_edit', { 'id': book.id }) }}" class="btn btn-block btn-warning">Edit</a>
+                            {{ form_start(delete_form) }}
+                            <input class="btn btn-block btn-danger" type="submit" value="Delete">
+                            {{ form_end(delete_form) }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h2 contenteditable="true" class="text-center">Reviews</h2>
+                    {% for review in book.reviews %}
+                        <blockquote>
+                            <p>{{ review.comment }}</p>
+                            <footer>{{ review.user }}</footer>
+                        </blockquote>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -64,8 +64,6 @@ class BookController extends Controller
         $em->refresh($book);
         $deleteForm = $this->createDeleteForm($book);
 
-       $reviewForm = $this->createForm('BookReviewBundle\Form\BookType', $book);
-
         return $this->render('book/show.html.twig', array(
             'book' => $book,
             'delete_form' => $deleteForm->createView(),
@@ -107,6 +105,7 @@ class BookController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
             $em->remove($book);
             $em->flush();
         }
