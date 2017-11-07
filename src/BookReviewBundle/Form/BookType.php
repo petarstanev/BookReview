@@ -5,6 +5,7 @@ namespace BookReviewBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class BookType extends AbstractType
 {
@@ -13,9 +14,11 @@ class BookType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')->add('author')->add('summary')->add('user');
+        $builder->add('title')->add('author')->add('summary')->add('imageName')->add('imageSize')->add('user')->add('imageFile', VichImageType::class, [
+            'required' => false,
+            'allow_delete' => true,
+        ]);
     }
-    
     /**
      * {@inheritdoc}
      */

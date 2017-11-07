@@ -4,17 +4,21 @@ namespace BookReviewBundle\Controller;
 
 use BookReviewBundle\Entity\Book;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Book controller.
  *
+ * @Route("book")
  */
 class BookController extends Controller
 {
     /**
      * Lists all book entities.
      *
+     * @Route("/", name="book_index")
+     * @Method("GET")
      */
     public function indexAction()
     {
@@ -30,14 +34,13 @@ class BookController extends Controller
     /**
      * Creates a new book entity.
      *
+     * @Route("/new", name="book_new")
+     * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
     {
         $book = new Book();
-        $currentUser = $this->getUser();
-        $book->setUser($currentUser);
         $form = $this->createForm('BookReviewBundle\Form\BookType', $book);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -57,11 +60,11 @@ class BookController extends Controller
     /**
      * Finds and displays a book entity.
      *
+     * @Route("/{id}", name="book_show")
+     * @Method("GET")
      */
     public function showAction(Book $book)
     {
-        $em = $this->getDoctrine()->getManager();
-        $em->refresh($book);
         $deleteForm = $this->createDeleteForm($book);
 
         return $this->render('book/show.html.twig', array(
@@ -73,12 +76,13 @@ class BookController extends Controller
     /**
      * Displays a form to edit an existing book entity.
      *
+     * @Route("/{id}/edit", name="book_edit")
+     * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Book $book)
     {
         $deleteForm = $this->createDeleteForm($book);
         $editForm = $this->createForm('BookReviewBundle\Form\BookType', $book);
-        $editForm->remove('user');
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -97,6 +101,8 @@ class BookController extends Controller
     /**
      * Deletes a book entity.
      *
+     * @Route("/{id}", name="book_delete")
+     * @Method("DELETE")
      */
     public function deleteAction(Request $request, Book $book)
     {
@@ -105,7 +111,6 @@ class BookController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-
             $em->remove($book);
             $em->flush();
         }
