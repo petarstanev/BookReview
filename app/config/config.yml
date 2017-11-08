@@ -92,3 +92,4 @@ easy_admin:
         - BookReviewBundle\Entity\Book
         - BookReviewBundle\Entity\Review
         - UserBundle\Entity\User
+
