@@ -22,13 +22,11 @@
             </div>
             <div class="row">
                 <div class="col-md-6 well">
-                  
                         <h4 class="text-center">Book options</h4>
                         <a href="{{ path('book_edit', { 'id': book.id }) }}" class="btn btn-block btn-warning">Edit</a>
                         {{ form_start(delete_form) }}
                         <input class="btn btn-block btn-danger" type="submit" value="Delete">
                         {{ form_end(delete_form) }}
-
                 </div>
                 <div class="col-md-6">
                     <a class="btn btn-block btn-info">Create a review</a>
