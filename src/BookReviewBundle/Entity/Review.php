@@ -136,5 +136,10 @@ class Review
     {
         $this->user = $user;
     }
+
+    function __toString()
+    {
+        return $this->comment;
+    }
 }
 

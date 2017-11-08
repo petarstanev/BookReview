@@ -26,6 +26,7 @@ class AppKernel extends Kernel
             new BookReviewBundle\BookReviewBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
             new UserBundle\UserBundle(),
+            new EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
