@@ -51,7 +51,7 @@ class Book
     private $reviews;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="books")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="books")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
@@ -65,7 +65,7 @@ class Book
     private $imageFile;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      *
      * @var string
      */

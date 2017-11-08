@@ -29,7 +29,7 @@ class Review
     private $comment;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="reviews")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="reviews")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
