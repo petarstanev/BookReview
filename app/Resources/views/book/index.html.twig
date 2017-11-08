@@ -2,44 +2,22 @@
 
 {% block body %}
     <h1>Books list</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Summary</th>
-                <th>Imagename</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 well">
+                <a href="{{ path('book_new') }}" class="btn btn-block btn-primary">Add book</a>
+            </div>
+        </div>
         {% for book in books %}
-            <tr>
-                <td><a href="{{ path('book_show', { 'id': book.id }) }}">{{ book.id }}</a></td>
-                <td>{{ book.title }}</td>
-                <td>{{ book.author }}</td>
-                <td>{{ book.summary }}</td>
-                <td>{{ book.imageName }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('book_show', { 'id': book.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('book_edit', { 'id': book.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
+            <div class="row">
+                <div class="col-md-6 well">
+                
+                    <a href="{{ path('book_show', { 'id': book.id }) }}"><h2>{{ book.title }}</h2></a>
+                    <h3>{{ book.author }}</h3>
+                    <img class="img-thumbnail" src="{{ vich_uploader_asset(book, 'imageFile') }}" alt="{{ book.title }}" />
+                    <p>{{ book.summary }}</p>
+                </div>
+            </div>
         {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('book_new') }}">Create a new book</a>
-        </li>
-    </ul>
+    </div>
 {% endblock %}
