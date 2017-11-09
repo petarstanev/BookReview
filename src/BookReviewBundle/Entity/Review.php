@@ -3,6 +3,7 @@
 namespace BookReviewBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Review
@@ -27,6 +28,19 @@ class Review
      * @ORM\Column(name="comment", type="text")
      */
     private $comment;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="rating", type="integer")
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 10,
+     *      minMessage = "Min % is 0",
+     *      maxMessage = "Max % is 10"
+     * )
+     */
+    private $rating;
 
     /**
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="reviews")
@@ -140,6 +154,22 @@ class Review
     function __toString()
     {
         return $this->comment;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
+    /**
+     * @param mixed $rating
+     */
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
     }
 }
 
