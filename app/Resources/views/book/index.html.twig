@@ -3,15 +3,17 @@
 {% block body %}
     <h1>Books list</h1>
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 well">
-                <a href="{{ path('book_new') }}" class="btn btn-block btn-primary">Add book</a>
+        {% if is_granted('ROLE_USER') %}
+            <div class="row">
+                <div class="col-md-6 well">
+                    <a href="{{ path('book_new') }}" class="btn btn-block btn-primary">Add book</a>
+                </div>
             </div>
-        </div>
+        {% endif %}
         {% for book in books %}
             <div class="row">
                 <div class="col-md-6 well">
-                
+
                     <a href="{{ path('book_show', { 'id': book.id }) }}"><h2>{{ book.title }}</h2></a>
                     <h3>{{ book.author }}</h3>
                     <img class="img-thumbnail" src="{{ vich_uploader_asset(book, 'imageFile') }}" alt="{{ book.title }}" />
