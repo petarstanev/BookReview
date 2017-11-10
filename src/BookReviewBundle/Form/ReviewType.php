@@ -16,9 +16,9 @@ class ReviewType extends AbstractType
         $builder->add('comment')->add('rating', 'Symfony\Component\Form\Extension\Core\Type\IntegerType', array('attr' => array(
             'min' => '1',
             'max' => '5',
-        )))->add('createdDate')->add('user')->add('book');
+        )))->add('book');
     }
-    
+
     /**
      * {@inheritdoc}
      */

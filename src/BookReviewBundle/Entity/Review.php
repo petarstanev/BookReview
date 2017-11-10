@@ -33,6 +33,7 @@ class Review
      * @var int
      *
      * @ORM\Column(name="rating", type="integer")
+     * @Assert\NotBlank,
      * @Assert\Range(
      *      min = 0,
      *      max = 10,
@@ -58,6 +59,7 @@ class Review
     /**
      * @ORM\ManyToOne(targetEntity="BookReviewBundle\Entity\Book", inversedBy="reviews")
      * @ORM\JoinColumn(name="book_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Assert\NotBlank()
      */
     private $book;
 

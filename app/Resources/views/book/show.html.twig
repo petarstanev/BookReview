@@ -9,13 +9,19 @@
                     <h2>{{ book.author }}</h2>
                     <img class="img-thumbnail" src="{{ vich_uploader_asset(book, 'imageFile') }}" alt="{{ book.title }}" />
                     <p>{{ book.summary }}</p>
+
+                    {% set sumratings = 0 %}
+                    {% for review in book.reviews %}
+                        {% set sumratings = sumratings + review.rating %}
+                    {% endfor %}
+                    <p>Average Rating: {{  sumratings / book.reviews|length }}</p>
                 </div>
                 <div class="col-md-6">
                     <h2 class="text-center">Reviews</h2>
                     {% for review in book.reviews %}
                         <blockquote>
-                            <p>{{ review.comment }}</p>
-                            <footer>{{ review.user }}</footer>
+                            <p><a href="{{ path('review_show', { 'id': review.id }) }}" class="">{{ review.comment }}</a><br/><small>Rating: {{ review.rating }}</small></p>
+                            <footer>User: {{ review.user }}</footer>
                         </blockquote>
                     {% endfor %}
                 </div>
