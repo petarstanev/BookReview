@@ -24,11 +24,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Book Review</a>
+            <a class="navbar-brand" href="/">Book Review</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="{{ path('book_index') }}">Books</a></li>
+                <li><a href="{{ path('book_index') }}">Books</a></li>
+                <li><a href="{{ path('review_index') }}">Reviews</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if is_granted('ROLE_USER') %}
