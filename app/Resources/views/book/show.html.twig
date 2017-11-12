@@ -14,7 +14,9 @@
                     {% for review in book.reviews %}
                         {% set sumratings = sumratings + review.rating %}
                     {% endfor %}
-                    <p>Average Rating: {{  sumratings / book.reviews|length }}</p>
+                    {% if book.reviews|length > 0 %}
+                        <p>Average Rating: {{  sumratings / book.reviews|length }}</p>
+                    {% endif %}
                 </div>
                 <div class="col-md-6">
                     <h2 class="text-center">Reviews</h2>

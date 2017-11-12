@@ -13,11 +13,9 @@
         {% for book in books %}
             <div class="row">
                 <div class="col-md-6 well">
-
                     <a href="{{ path('book_show', { 'id': book.id }) }}"><h2>{{ book.title }}</h2></a>
                     <h3>{{ book.author }}</h3>
                     <img class="img-thumbnail" src="{{ vich_uploader_asset(book, 'imageFile') }}" alt="{{ book.title }}" />
-                    <p>{{ book.summary }}</p>
                 </div>
             </div>
         {% endfor %}

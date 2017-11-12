@@ -43,6 +43,9 @@ class BookController extends Controller
         $form = $this->createForm('BookReviewBundle\Form\BookType', $book);
         $form->handleRequest($request);
 
+        $currentUser = $this->getUser();
+        $book->setUser($currentUser);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($book);

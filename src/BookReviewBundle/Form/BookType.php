@@ -14,7 +14,9 @@ class BookType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')->add('author')->add('summary')->add('imageFile', VichImageType::class, [
+        $builder->add('title')->add('author')->add('summary', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array(
+            'attr' => array('cols' => '100', 'rows' => '5'),
+        ))->add('imageFile', VichImageType::class, [
             'required' => false,
             'allow_delete' => false,
         ]);
