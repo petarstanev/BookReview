@@ -38,16 +38,15 @@ class ReviewController extends Controller
         $currentUser = $this->getUser();
         $review->setUser($currentUser);
         $review->setCreatedDate(new \DateTime());
+        $form = $this->createForm('BookReviewBundle\Form\ReviewType', $review);
         if ( $bookId > 0){
             $bookRepo = $this->getDoctrine()->getRepository('BookReviewBundle:Book');
 
             $selectedBook = $bookRepo->find($bookId);
             $review->setBook($selectedBook);
+            $form->remove('book');
         }
 
-        $form = $this->createForm('BookReviewBundle\Form\ReviewType', $review);
-        $form->remove('user');
-        $form->remove('createdDate');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -55,7 +54,7 @@ class ReviewController extends Controller
             $em->persist($review);
             $em->flush();
 
-            return $this->redirectToRoute('review_show', array('id' => $review->getId()));
+            return $this->redirectToRoute('book_show', array('id' => $review->getBook()->getId()));
         }
 
         return $this->render('review/new.html.twig', array(

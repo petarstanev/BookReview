@@ -13,9 +13,12 @@ class ReviewType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('comment')->add('rating', 'Symfony\Component\Form\Extension\Core\Type\IntegerType', array('attr' => array(
+        $builder->add('comment', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array(
+            'attr' => array('cols' => '100', 'rows' => '5'),
+        ))->add('rating', 'Symfony\Component\Form\Extension\Core\Type\IntegerType', array('attr' => array(
             'min' => '1',
             'max' => '5',
+            'value' => '1'
         )))->add('book');
     }
 
