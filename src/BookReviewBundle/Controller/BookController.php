@@ -91,7 +91,7 @@ class BookController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('book_edit', array('id' => $book->getId()));
+            return $this->redirectToRoute('book_show', array('id' => $book->getId()));
         }
 
         return $this->render('book/edit.html.twig', array(
