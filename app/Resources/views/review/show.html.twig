@@ -6,15 +6,15 @@
     <table>
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ review.id }}</td>
-            </tr>
-            <tr>
                 <th>Comment</th>
                 <td>{{ review.comment }}</td>
             </tr>
             <tr>
-                <th>Createddate</th>
+                <th>Rating</th>
+                <td>{{ review.rating }}</td>
+            </tr>
+            <tr>
+                <th>Created date</th>
                 <td>{% if review.createdDate %}{{ review.createdDate|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
         </tbody>

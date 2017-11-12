@@ -16,6 +16,7 @@
                     <p>{{ review.comment }}</p>
                     <h4>User - {{ review.user.getUsername() }}</h4>
                     <h4>Book - <a href="{{ path('book_show', { 'id': review.book.id }) }}">{{ review.book.title }}</a></h4>
+                    <h4><a href="{{ path('review_show', { 'id': review.id }) }}">Review</a></h4>
                 </div>
             </div>
         {% endfor %}

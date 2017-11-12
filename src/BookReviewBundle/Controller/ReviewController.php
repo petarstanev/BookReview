@@ -89,13 +89,13 @@ class ReviewController extends Controller
         $currentUser = $this->getUser();
         $review->setUser($currentUser);
         $editForm = $this->createForm('BookReviewBundle\Form\ReviewType', $review);
-        $editForm->remove('user');
+        $editForm->remove('book');
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('review_edit', array('id' => $review->getId()));
+            return $this->redirectToRoute('review_show', array('id' => $review->getId()));
         }
 
         return $this->render('review/edit.html.twig', array(
