@@ -27,3 +27,8 @@ book_review:
   path:     /{bookId}/review
   defaults: { _controller: "BookReviewBundle:Review:new" }
   methods:  [GET, POST]
+
+book_find:
+    path:     /find
+    defaults: { _controller: "BookReviewBundle:Book:find" }
+    methods:  [GET, POST]

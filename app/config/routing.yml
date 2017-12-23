@@ -23,3 +23,7 @@ easy_admin_bundle:
 book_homepage:
     path:     /
     defaults: { _controller: "BookReviewBundle:Book:index" }
+
+find:
+    path:     /
+    defaults: { _controller: "BookReviewBundle:Book:index" }

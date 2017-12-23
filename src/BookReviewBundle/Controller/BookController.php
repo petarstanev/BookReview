@@ -20,14 +20,48 @@ class BookController extends Controller
      * @Route("/", name="book_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $books = $em->getRepository('BookReviewBundle:Book')->findAll();
+        $searchValue = $request->get('searchValue');
 
+        if($searchValue != NULL) {
+            $books= $em->getRepository("BookReviewBundle:Book")->createQueryBuilder('o')
+                ->where("o.title LIKE :title")
+                ->setParameter('title', '%'.$searchValue.'%')
+                ->getQuery()
+                ->getResult();
+        }
+        else {
+            $books = $em->getRepository('BookReviewBundle:Book')->findAll();
+        }
         return $this->render('book/index.html.twig', array(
             'books' => $books,
+        ));
+    }
+
+    /**
+     * Search books by title and author
+     *
+     * @Method("Post")
+     */
+    public function searchAction($query ='')
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $allBooks = $em->getRepository('BookReviewBundle:Book')->findAll();
+
+        $foundBooks = array();
+
+        foreach ($allBooks as $book) {
+            if (strpos($book->getTitle(), $query) !== false) {
+                $foundBooks = $book;
+            }
+        }
+
+        return $this->render('book/index.html.twig', array(
+            'books' => $foundBooks,
         ));
     }
 
@@ -135,5 +169,23 @@ class BookController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    public function findAction (Request $request) {
+        $searchValue = $request->get('searchValue');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $result = $em->getRepository("BookReviewBundle:Book")->createQueryBuilder('o')
+            ->where("o.title LIKE :title")
+            ->setParameter('title', '%'.$searchValue.'%')
+            ->getQuery()
+            ->getResult();
+
+        $this->redirectToRoute('book_index');
+
+        return $this->render('book/index.html.twig', array(
+            'books' => $result,
+        ));
     }
 }
