@@ -7,7 +7,7 @@
                 <div class="col-md-6">
                     <h1>{{ book.title }}</h1>
                     <h2>{{ book.author }}</h2>
-                    <img class="img-thumbnail" src="{{ vich_uploader_asset(book, 'imageFile') }}" alt="{{ book.title }}" />
+                    <img class="img-responsive book-image" src="{{ vich_uploader_asset(book, 'imageFile') }}" alt="{{ book.title }}" />
                     <p>{{ book.summary }}</p>
 
                     {% set sumratings = 0 %}
@@ -15,7 +15,7 @@
                         {% set sumratings = sumratings + review.rating %}
                     {% endfor %}
                     {% if book.reviews|length > 0 %}
-                        <p>Average Rating: {{  (sumratings / book.reviews|length)|number_format(2, '.', ',') }}</p>
+                        <b><p>Average Rating: {{  (sumratings / book.reviews|length)|number_format(2, '.', ',') }}</p></b>
                     {% endif %}
                 </div>
                 <div class="col-md-6">
