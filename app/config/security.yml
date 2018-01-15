@@ -35,6 +35,6 @@ security:
 
         - { path: ^/review/new, role: ROLE_USER}
         - { path: ^/review/[0-9]+/edit, role: ROLE_USER}
-        - { path: ^/review/[0-9]+/delete, role: ROLE_USER}
+        - { path: ^/review/[0-9]+/delete, role: ROLE_MODERATOR}
 
         - { path: ^/admin, role: ROLE_ADMIN}

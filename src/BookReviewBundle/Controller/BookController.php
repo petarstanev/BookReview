@@ -28,8 +28,8 @@ class BookController extends Controller
 
         if($searchValue != NULL) {
             $books= $em->getRepository("BookReviewBundle:Book")->createQueryBuilder('o')
-                ->where("o.title LIKE :title OR o.author LIKE :title")
-                ->setParameter('title', '%'.$searchValue.'%')
+                ->where("o.title LIKE :search OR o.author LIKE :search")
+                ->setParameter('search', '%'.$searchValue.'%')
                 ->getQuery()
                 ->getResult();
         }

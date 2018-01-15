@@ -17,8 +17,7 @@ class ReviewType extends AbstractType
             'attr' => array('cols' => '100', 'rows' => '5'),
         ))->add('rating', 'Symfony\Component\Form\Extension\Core\Type\IntegerType', array('attr' => array(
             'min' => '1',
-            'max' => '5',
-            'value' => '1'
+            'max' => '5'
         )))->add('book');
     }
 

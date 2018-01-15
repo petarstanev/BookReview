@@ -27,10 +27,12 @@
         <li>
             <a href="{{ path('review_edit', { 'id': review.id }) }}">Edit</a>
         </li>
+        {% if is_granted('ROLE_MODERATOR') %}
         <li>
             {{ form_start(delete_form) }}
                 <input type="submit" value="Delete">
             {{ form_end(delete_form) }}
         </li>
+        {% endif %}
     </ul>
 {% endblock %}
