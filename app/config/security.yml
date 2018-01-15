@@ -30,7 +30,8 @@ security:
         - { path: ^/book/new, role: ROLE_USER}
         - { path: ^/book/[0-9]+/review, role: ROLE_USER}
         - { path: ^/book/[0-9]+/edit, role: ROLE_USER}
-        - { path: ^/book/[0-9]+/delete, role: ROLE_USER}
+
+        - { path: ^/book/[0-9]+/delete, role: ROLE_MODERATOR}
 
         - { path: ^/review/new, role: ROLE_USER}
         - { path: ^/review/[0-9]+/edit, role: ROLE_USER}

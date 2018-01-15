@@ -89,7 +89,16 @@ vich_uploader:
 
 easy_admin:
     entities:
-        - BookReviewBundle\Entity\Book
-        - BookReviewBundle\Entity\Review
-        - UserBundle\Entity\User
-
+        Book:
+            class: BookReviewBundle\Entity\Book
+        Review:
+            class: BookReviewBundle\Entity\Review
+        User:
+           class: UserBundle\Entity\User
+           form:
+               fields:
+                   - username
+                   - email
+                   - enabled
+                   - lastLogin
+                   - { property: 'roles', type: 'choice', type_options: { multiple: true, expanded: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_MODERATOR': 'ROLE_MODERATOR', 'ROLE_ADMIN': 'ROLE_ADMIN' } } }
