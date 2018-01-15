@@ -7,7 +7,9 @@
                 <div class="col-md-6">
                     <h1>{{ book.title }}</h1>
                     <h2>{{ book.author }}</h2>
-                    <img class="img-responsive book-image" src="{{ vich_uploader_asset(book, 'imageFile') }}" alt="{{ book.title }}" />
+                    {% if book.imageName is not empty %}
+                        <img class="img-responsive book-image" src="{{ vich_uploader_asset(book, 'imageFile') }}" alt="{{ book.title }}" />
+                    {% endif %}
                     <p>{{ book.summary }}</p>
 
                     {% set sumratings = 0 %}
