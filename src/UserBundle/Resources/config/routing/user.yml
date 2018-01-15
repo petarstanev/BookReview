@@ -1,0 +1,4 @@
+user_index:
+    path:     /
+    defaults: { _controller: "UserBundle:Default:index" }
+    methods:  GET

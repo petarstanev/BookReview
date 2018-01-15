@@ -8,6 +8,31 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('UserBundle:Default:index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+
+        $users = $em->getRepository('UserBundle:User')->findAll();
+        return $this->render('user/index.html.twig', array(
+            'users' => $users,
+        ));
+    }
+
+    public function promoteUser($user_id = 0)
+    {
+        $userManager = $this->get('fos_user.user_manager');
+        $user = $userManager->findUserBy(array('id' => $user_id));
+
+        $userManager = $this->get('fos_user.user_manager');
+        $user->addRole('ROLE_MODERATOR');
+        $userManager->updateUser($user);
+    }
+
+    public function demoteUser($user_id = 0)
+    {
+        $userManager = $this->get('fos_user.user_manager');
+        $user = $userManager->findUserBy(array('id' => $user_id));
+
+        $userManager = $this->get('fos_user.user_manager');
+        $user->removeRole('ROLE_MODERATOR');
+        $userManager->updateUser($user);
     }
 }

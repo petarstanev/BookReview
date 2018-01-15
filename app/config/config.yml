@@ -91,5 +91,13 @@ easy_admin:
     entities:
         - BookReviewBundle\Entity\Book
         - BookReviewBundle\Entity\Review
-        - UserBundle\Entity\User
-
+        User:
+           class: UserBundle\Entity\User
+           form:
+               fields:
+                   - username
+                   - email
+                   - enabled
+                   - lastLogin
+                   - { property: 'plainPassword', type: 'text', type_options: { required: false } }
+                   - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN' } } }

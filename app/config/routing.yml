@@ -2,10 +2,6 @@ user:
     resource: "@UserBundle/Resources/config/routing.yml"
     prefix:   /
 
-book_review_book:
-    resource: "@BookReviewBundle/Controller/BookController.php"
-    type:     annotation
-
 book_review:
     resource: "@BookReviewBundle/Resources/config/routing.yml"
     prefix:   /
@@ -19,9 +15,5 @@ easy_admin_bundle:
     prefix:   /admin
 
 book_homepage:
-    path:     /
-    defaults: { _controller: "BookReviewBundle:Book:index" }
-
-find:
     path:     /
     defaults: { _controller: "BookReviewBundle:Book:index" }

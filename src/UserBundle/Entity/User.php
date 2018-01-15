@@ -73,5 +73,21 @@ class User extends BaseUser
     {
         $this->books = $books;
     }
+
+    public function getRole()
+    {
+        $allroles = "";
+
+        foreach( $this->getRoles() as $role){
+            $allroles.= $role;
+        }
+
+        if (strpos($allroles, 'ADMIN') !== false) {
+            return "Admin";
+        }elseif (strpos($allroles, 'MODERATOR') !== false){
+            return "Moderator";
+        }
+        return "User";
+    }
 }
 
