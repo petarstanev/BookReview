@@ -44,7 +44,7 @@ class Review
     private $rating;
 
     /**
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="reviews")
+     * @ORM\ManyToOne(targetEntity="BookReviewBundle\Entity\User", inversedBy="reviews")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;

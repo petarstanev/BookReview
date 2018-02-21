@@ -1,13 +1,12 @@
 <?php
 
-namespace UserBundle\Controller;
+namespace BookReviewBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class DefaultController extends Controller
+class UserController extends Controller
 {
-    public function indexAction()
-    {
+    public function indexAction()    {
         return $this->render('UserBundle:Default:index.html.twig');
     }
 }

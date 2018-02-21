@@ -51,7 +51,7 @@ class Book
     private $reviews;
 
     /**
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="books")
+     * @ORM\ManyToOne(targetEntity="BookReviewBundle\Entity\User", inversedBy="books")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;

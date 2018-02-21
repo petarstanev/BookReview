@@ -3,7 +3,6 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@BookReviewBundle/Resources/config/services.yml" }
-    - { resource: "@UserBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -73,7 +72,7 @@ swiftmailer:
 fos_user:
     db_driver: orm
     firewall_name: main
-    user_class: UserBundle\Entity\User
+    user_class: BookReviewBundle\Entity\User
     from_email:
         address: "hello@test.com"
         sender_name: "Test"
@@ -94,7 +93,7 @@ easy_admin:
         Review:
             class: BookReviewBundle\Entity\Review
         User:
-           class: UserBundle\Entity\User
+           class: BookReviewBundle\Entity\User
            form:
                fields:
                    - username
@@ -102,3 +101,7 @@ easy_admin:
                    - enabled
                    - lastLogin
                    - { property: 'roles', type: 'choice', type_options: { multiple: true, expanded: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_MODERATOR': 'ROLE_MODERATOR', 'ROLE_ADMIN': 'ROLE_ADMIN' } } }
+
+fos_rest:
+    routing_loader:
+        default_format: json

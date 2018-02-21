@@ -1,7 +1,3 @@
-user:
-    resource: "@UserBundle/Resources/config/routing.yml"
-    prefix:   /
-
 book_review_book:
     resource: "@BookReviewBundle/Controller/BookController.php"
     type:     annotation
