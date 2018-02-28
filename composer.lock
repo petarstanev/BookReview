@@ -1127,6 +1127,7 @@
                 "backend",
                 "generator"
             ],
+            "abandoned": "easycorp/easyadmin-bundle",
             "time": "2017-11-01T19:02:08+00:00"
         },
         {

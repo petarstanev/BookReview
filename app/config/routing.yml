@@ -1,3 +1,10 @@
+
+blogger_api:
+    type: rest
+    resource: "@BookReviewBundle/Resources/config/routing/api.yml"
+    prefix: /api/v1
+
+
 book_review_book:
     resource: "@BookReviewBundle/Controller/BookController.php"
     type:     annotation
@@ -21,3 +28,4 @@ book_homepage:
 find:
     path:     /
     defaults: { _controller: "BookReviewBundle:Book:index" }
+
