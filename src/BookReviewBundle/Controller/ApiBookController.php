@@ -16,4 +16,16 @@ class ApiBookController extends FOSRestController
         $books = $em->getRepository('BookReviewBundle:Book')->findAll();
         return $this->handleView($this->view($books));
     }
+
+    public function getBookAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $book = $em->getRepository('BookReviewBundle:Book')->find($id);
+        if(!$book) {
+            $view = $this->view(null, 404);
+        } else {
+            $view = $this->view($book);
+        }
+        return $this->handleView($view);
+    }
 }
