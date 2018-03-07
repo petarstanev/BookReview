@@ -83,7 +83,6 @@ class ApiBookController extends FOSRestController
             // Point 4 of list above
             $em = $this->getDoctrine()->getManager();
 
-
             $em->flush();
             // set status code to 201 and set the Location header
             // to the URL to retrieve the blog entry - Point 5
@@ -100,5 +99,19 @@ class ApiBookController extends FOSRestController
             return $this->handleView($form->getErrors(true), 400);
         }
 
+    }
+
+    public function deleteBookAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $book = $em->getRepository('BookReviewBundle:Book')->find($id);
+        if(!$book) {
+            $view = $this->view(null, 404);
+        } else {
+            $em->remove($book);
+            $em->flush();
+            $view = $this->view(null, 200);
+        }
+        return $this->handleView($view);
     }
 }
