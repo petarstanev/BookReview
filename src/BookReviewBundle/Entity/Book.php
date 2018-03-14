@@ -6,12 +6,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
+use JMS\Serializer\Annotation as JMS;
 /**
  * Book
  *
  * @ORM\Table(name="book")
  * @ORM\Entity(repositoryClass="BookReviewBundle\Repository\BookRepository")
  * @Vich\Uploadable
+ *
+ * @JMS\ExclusionPolicy("none")
  */
 class Book
 {
@@ -28,6 +31,8 @@ class Book
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     *
+     *
      */
     private $title;
 
@@ -35,6 +40,7 @@ class Book
      * @var string
      *
      * @ORM\Column(name="author", type="string", length=100)
+     *
      */
     private $author;
 
@@ -47,12 +53,16 @@ class Book
 
     /**
      * @ORM\OneToMany(targetEntity="BookReviewBundle\Entity\Review", mappedBy="book")
+     *
+     * @JMS\Exclude
      */
     private $reviews;
 
     /**
      * @ORM\ManyToOne(targetEntity="BookReviewBundle\Entity\User", inversedBy="books")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     *
+     * @JMS\Exclude
      */
     private $user;
 
