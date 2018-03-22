@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ReviewType extends AbstractType
+class ReviewApiType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -18,7 +18,7 @@ class ReviewType extends AbstractType
         ))->add('rating', 'Symfony\Component\Form\Extension\Core\Type\IntegerType', array('attr' => array(
             'min' => '1',
             'max' => '5'
-        )))->add('book');
+        )))->add('book','Symfony\Component\Form\Extension\Core\Type\IntegerType');
     }
 
     /**

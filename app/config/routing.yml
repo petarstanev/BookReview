@@ -4,7 +4,6 @@ blogger_api:
     resource: "@BookReviewBundle/Resources/config/routing/api.yml"
     prefix: /api/v1
 
-
 book_review_book:
     resource: "@BookReviewBundle/Controller/BookController.php"
     type:     annotation
