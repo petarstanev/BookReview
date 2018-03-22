@@ -3,8 +3,16 @@ api_book:
     resource: BookReviewBundle\Controller\ApiBookController
     name_prefix: api_book_
     prefix: /
+
 api_review:
     type: rest
     resource: BookReviewBundle\Controller\ApiReviewController
     name_prefix: api_review_
     prefix: /
+
+api_bookreview:
+    type: rest
+    resource: BookReviewBundle\Controller\ApiBookReviewController
+    name_prefix: api_bookreview_
+    parent:   api_book
+
