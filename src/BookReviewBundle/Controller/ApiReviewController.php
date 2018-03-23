@@ -37,6 +37,8 @@ class ApiReviewController extends FOSRestController
         // prepare the form and remove the submit button
         $review = new Review();
         $form = $this->createForm(ReviewApiType::class, $review);
+        $book = new Book();
+
         // Point 1 of list above
         if($request->getContentType() != 'json') {
             return $this->handleView($this->view(null, 400));
@@ -44,6 +46,7 @@ class ApiReviewController extends FOSRestController
         // json_decode the request content and pass it to the form
         $form->submit(json_decode($request->getContent(), true));
         // Point 2 of list above
+        $form->get('book')->setData($book);
         if($form->isValid()) {
             // Point 4 of list above
             $em = $this->getDoctrine()->getManager();
