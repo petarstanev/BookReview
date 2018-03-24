@@ -59,7 +59,7 @@ class Review
     /**
      * @ORM\ManyToOne(targetEntity="BookReviewBundle\Entity\Book", inversedBy="reviews")
      * @ORM\JoinColumn(name="book_id", referencedColumnName="id", onDelete="CASCADE")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank
      */
     private $book;
 

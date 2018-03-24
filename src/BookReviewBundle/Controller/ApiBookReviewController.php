@@ -34,7 +34,11 @@ class ApiBookReviewController extends FOSRestController
 
     public function postReviewAction($slug, Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $review = new Review();
+        $book = $em->getRepository('BookReviewBundle:Book')->find($slug);//get book from id
+        $review->setBook($book);
+
         $form = $this->createForm(ReviewChildApiType::class, $review);
         // Point 1 of list above
         if($request->getContentType() != 'json') {
@@ -45,11 +49,7 @@ class ApiBookReviewController extends FOSRestController
         // Point 2 of list above
         if($form->isValid()) {
             // Point 4 of list above
-            $em = $this->getDoctrine()->getManager();
 
-            //$bookEntry->setAuthor($this->getUser());
-            $book = $em->getRepository('BookReviewBundle:Book')->find($slug);//get book from id
-            $review->setBook($book);
             $review->setCreatedDate(new \DateTime());
             $em->persist($review);
             $em->flush();
@@ -65,7 +65,7 @@ class ApiBookReviewController extends FOSRestController
         } else {
             // the form isn't valid so return the form
             // along with a 400 status code
-            $errors = $form->getErrors();
+            $errors = $form->getErrors(true);
             $data = [
                 'type' => 'validation_error',
                 'title' => 'There was a validation error',

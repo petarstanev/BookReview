@@ -18,7 +18,7 @@ class ReviewChildApiType extends AbstractType
         ))->add('rating', 'Symfony\Component\Form\Extension\Core\Type\IntegerType', array('attr' => array(
             'min' => '1',
             'max' => '5'
-        )))->add('book','Symfony\Component\Form\Extension\Core\Type\IntegerType');
+        )));
     }
 
     /**
