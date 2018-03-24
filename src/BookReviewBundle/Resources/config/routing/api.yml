@@ -28,3 +28,8 @@ api_user_book:
     name_prefix: api_userbook_
     parent:   api_user
 
+api_user_review:
+    type: rest
+    resource: BookReviewBundle\Controller\ApiUserReviewController
+    name_prefix: api_userreview_
+    parent:   api_user
