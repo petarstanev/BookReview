@@ -21,3 +21,10 @@ api_user:
     resource: BookReviewBundle\Controller\ApiUserController
     name_prefix: api_user_
     prefix: /
+
+api_user_book:
+    type: rest
+    resource: BookReviewBundle\Controller\ApiUserBookController
+    name_prefix: api_userbook_
+    parent:   api_user
+
