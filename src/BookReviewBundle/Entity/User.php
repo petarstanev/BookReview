@@ -27,6 +27,12 @@ class User extends BaseUser
      */
     protected $id;
 
+    /** @ORM\Column(name="github_id", type="string", length=255, nullable=true) */
+    protected $github_id;
+
+    /** @ORM\Column(name="github_access_token", type="string", length=255, nullable=true) */
+    protected $github_access_token;
+
     /**
      * @ORM\OneToMany(targetEntity="BookReviewBundle\Entity\Review", mappedBy="user")
      *
@@ -79,6 +85,26 @@ class User extends BaseUser
     public function setBooks($books)
     {
         $this->books = $books;
+    }
+
+    public function setGithubId($githubId) {
+        $this->github_id = $githubId;
+
+        return $this;
+    }
+
+    public function getGithubId() {
+        return $this->github_id;
+    }
+
+    public function setGithubAccessToken($githubAccessToken) {
+        $this->github_access_token = $githubAccessToken;
+
+        return $this;
+    }
+
+    public function getGithubAccessToken() {
+        return $this->github_access_token;
     }
 }
 

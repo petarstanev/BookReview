@@ -13,4 +13,7 @@ services:
         # this means you cannot fetch services directly from the container via $container->get()
         # if you need to do this, you can override this setting on individual services
         public: false
-
+    app.fos_user.oauth_provider:
+        # Change the class according to the location of the FOSUBUserProvider class
+        class: BookReviewBundle\Entity\FOSUBUserProvider
+        arguments: ['@fos_user.user_manager',{github: github_id}]
