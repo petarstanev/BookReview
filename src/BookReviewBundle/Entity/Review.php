@@ -11,6 +11,7 @@ use JMS\Serializer\Annotation as JMS;
  *
  * @ORM\Table(name="review")
  * @ORM\Entity(repositoryClass="BookReviewBundle\Repository\ReviewRepository")
+ *
  * @JMS\ExclusionPolicy("none")
  */
 class Review
@@ -48,6 +49,8 @@ class Review
     /**
      * @ORM\ManyToOne(targetEntity="BookReviewBundle\Entity\User", inversedBy="reviews")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     *
+     * @JMS\Exclude
      */
     private $user;
 
@@ -55,6 +58,7 @@ class Review
      * @var \DateTime
      *
      * @ORM\Column(name="createdDate", type="datetime")
+     * @JMS\Type("DateTime<'Y-m-d h:i'>")
      */
     private $createdDate;
 
@@ -62,6 +66,8 @@ class Review
      * @ORM\ManyToOne(targetEntity="BookReviewBundle\Entity\Book", inversedBy="reviews")
      * @ORM\JoinColumn(name="book_id", referencedColumnName="id", onDelete="CASCADE")
      * @Assert\NotBlank
+     *
+     * @JMS\Exclude
      */
     private $book;
 
@@ -69,6 +75,7 @@ class Review
      * Get id
      *
      * @return int
+     *
      */
     public function getId()
     {

@@ -100,7 +100,7 @@ class ApiReviewController extends FOSRestController
             // to the URL to retrieve the blog entry - Point 5
             return $this->handleView($this->view(null, 200)
                 ->setLocation(
-                    $this->generateUrl('book_show',
+                    $this->generateUrl('review_show',
                         ['id' => $review->getId()]
                     )
                 )
@@ -116,33 +116,17 @@ class ApiReviewController extends FOSRestController
         }
     }
 
-    public function deleteBookAction($id)
+    public function deleteReviewAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $book = $em->getRepository('BookReviewBundle:Book')->find($id);
-        if(!$book) {
+        $review = $em->getRepository('BookReviewBundle:Review')->find($id);
+        if(!$review) {
             $view = $this->view(null, 404);
         } else {
-            $em->remove($book);
+            $em->remove($review);
             $em->flush();
             $view = $this->view(null, 200);
         }
         return $this->handleView($view);
-    }
-
-    private function getErrorsFromForm(FormInterface $form)
-    {
-        $errors = array();
-        foreach ($form->getErrors() as $error) {
-            $errors[] = $error->getMessage();
-        }
-        foreach ($form->all() as $childForm) {
-            if ($childForm instanceof FormInterface) {
-                if ($childErrors = $this->getErrorsFromForm($childForm)) {
-                    $errors[$childForm->getName()] = $childErrors;
-                }
-            }
-        }
-        return $errors;
     }
 }
