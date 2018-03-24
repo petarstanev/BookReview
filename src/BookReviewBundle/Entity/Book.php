@@ -54,7 +54,6 @@ class Book
     /**
      * @ORM\OneToMany(targetEntity="BookReviewBundle\Entity\Review", mappedBy="book")
      *
-     * @JMS\Exclude
      */
     private $reviews;
 
@@ -62,7 +61,7 @@ class Book
      * @ORM\ManyToOne(targetEntity="BookReviewBundle\Entity\User", inversedBy="books")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      *
-     * @JMS\Exclude
+     *
      */
     private $user;
 

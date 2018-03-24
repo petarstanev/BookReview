@@ -86,7 +86,7 @@ class ApiBookController extends FOSRestController
             $em->flush();
             // set status code to 201 and set the Location header
             // to the URL to retrieve the blog entry - Point 5
-            return $this->handleView($this->view(null, 201)
+            return $this->handleView($this->view(null, 200)
                 ->setLocation(
                     $this->generateUrl('book_show',
                         ['id' => $bookEntry->getId()]

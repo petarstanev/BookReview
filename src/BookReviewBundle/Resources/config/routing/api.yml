@@ -16,3 +16,8 @@ api_bookreview:
     name_prefix: api_bookreview_
     parent:   api_book
 
+api_user:
+    type: rest
+    resource: BookReviewBundle\Controller\ApiUserController
+    name_prefix: api_user_
+    prefix: /

@@ -105,3 +105,12 @@ easy_admin:
 fos_rest:
     routing_loader:
         default_format: json
+
+jms_serializer:
+    metadata:
+        auto_detection: true
+        debug: true
+        directories:
+            FOSUserBundle:
+                namespace_prefix: "FOS\\UserBundle"
+                path: "@BookReviewBundle/Resources/config/serializer"

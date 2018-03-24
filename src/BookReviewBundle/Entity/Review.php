@@ -4,12 +4,14 @@ namespace BookReviewBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * Review
  *
  * @ORM\Table(name="review")
  * @ORM\Entity(repositoryClass="BookReviewBundle\Repository\ReviewRepository")
+ * @JMS\ExclusionPolicy("none")
  */
 class Review
 {

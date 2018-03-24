@@ -37,7 +37,6 @@ class ApiReviewController extends FOSRestController
         // prepare the form and remove the submit button
         $review = new Review();
         $form = $this->createForm(ReviewApiType::class, $review);
-        $book = new Book();
 
         // Point 1 of list above
         if($request->getContentType() != 'json') {
@@ -46,7 +45,7 @@ class ApiReviewController extends FOSRestController
         // json_decode the request content and pass it to the form
         $form->submit(json_decode($request->getContent(), true));
         // Point 2 of list above
-        $form->get('book')->setData($book);
+
         if($form->isValid()) {
             // Point 4 of list above
             $em = $this->getDoctrine()->getManager();
@@ -99,7 +98,7 @@ class ApiReviewController extends FOSRestController
             $em->flush();
             // set status code to 201 and set the Location header
             // to the URL to retrieve the blog entry - Point 5
-            return $this->handleView($this->view(null, 201)
+            return $this->handleView($this->view(null, 200)
                 ->setLocation(
                     $this->generateUrl('book_show',
                         ['id' => $review->getId()]
@@ -115,7 +114,6 @@ class ApiReviewController extends FOSRestController
             ];
             return $this->handleView($this->view($data, 400));
         }
-
     }
 
     public function deleteBookAction($id)

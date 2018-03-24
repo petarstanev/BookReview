@@ -5,12 +5,15 @@ namespace BookReviewBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\Common\Collections\ArrayCollection;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="BookReviewBundle\Repository\UserRepository")
+ *
+ * @JMS\ExclusionPolicy("all")
  */
 class User extends BaseUser
 {
@@ -20,11 +23,14 @@ class User extends BaseUser
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
      */
     protected $id;
 
     /**
      * @ORM\OneToMany(targetEntity="BookReviewBundle\Entity\Review", mappedBy="user")
+     *
+     *
      */
     private $reviews;
 
