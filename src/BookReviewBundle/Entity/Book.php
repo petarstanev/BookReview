@@ -259,5 +259,15 @@ class Book
         return $this->imageName;
     }
 
+    public function loadJsonData($json){
+        $this->setTitle($json->title);
+        if(isset($json->authors))
+            $this->setAuthor(implode(", ",$json->authors));
+        if(isset($json->description))
+            $this->setSummary($json->description);
+        if(isset($json->imageLinks))
+            $this->setImageName($json->imageLinks->thumbnail);
+        $this->id = 0;
+    }
 }
 

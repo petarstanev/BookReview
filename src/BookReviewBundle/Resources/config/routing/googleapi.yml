@@ -1,0 +1,14 @@
+api_index:
+    path:     /
+    defaults: { _controller: "BookReviewBundle:BookApi:talks" }
+    methods:  GET
+
+api_search:
+    path:     /search/{value}&page={page}
+    defaults: { _controller: "BookReviewBundle:BookApi:search", page:1 }
+    methods:  GET
+
+api_search_page:
+    path:     /search/{value}
+    defaults: { _controller: "BookReviewBundle:BookApi:search", page:1 }
+    methods:  GET

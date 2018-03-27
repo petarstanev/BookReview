@@ -1,0 +1,29 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <h1>Books list</h1>
+    <div class="container">
+        {% if is_granted('ROLE_USER') %}
+            <div class="row">
+                <div class="col-md-6 well">
+                    <a href="{{ path('book_new') }}" class="btn btn-block btn-primary">Add book</a>
+                </div>
+            </div>
+        {% endif %}
+        {% for book in books %}
+            <div class="row">
+                <div class="col-md-6 well">
+                    <a href="{{ path('book_show', { 'id': book.id }) }}"><h2>{{ book.title }}</h2></a>
+                    <h3>{{ book.author }}</h3>
+                    {% if book.imageName is not empty %}
+                        {% if book.imageFile is empty %}
+                            <img class="img-responsive book-image" src="{{ book.imageName }}" alt="{{ book.title }}" />
+                        {% else %}
+                            <img class="img-responsive book-image" src="{{ vich_uploader_asset(book, 'imageFile') }}" alt="{{ book.title }}" />
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

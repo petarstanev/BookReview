@@ -7,3 +7,6 @@ book_review_review:
         prefix:   /review
 
 
+book_user_api:
+        resource: "@BookReviewBundle/Resources/config/routing/googleapi.yml"
+        prefix:   /googleapi
