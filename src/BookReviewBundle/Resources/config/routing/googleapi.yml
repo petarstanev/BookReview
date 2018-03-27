@@ -3,10 +3,16 @@ api_index:
     defaults: { _controller: "BookReviewBundle:BookApi:talks" }
     methods:  GET
 
-api_search:
+api_search_result:
+    path:     /search
+    defaults: { _controller: "BookReviewBundle:BookApi:search", page:1 }
+    methods:  [GET, POST]
+
+api_search_result:
     path:     /search/{value}&page={page}
     defaults: { _controller: "BookReviewBundle:BookApi:search", page:1 }
     methods:  GET
+
 
 api_search_page:
     path:     /search/{value}

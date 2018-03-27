@@ -6,6 +6,8 @@ use BookReviewBundle\Entity\Book;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class BookApiController extends Controller
 {
@@ -16,51 +18,57 @@ class BookApiController extends Controller
      */
     public function searchAction(Request $request)
     {
-        $searchValueInput = $request->get('value');
+        $searchValueInput = $request->get('searchText');
         $searchValue = str_replace(' ', '+', $searchValueInput);
+        dump($searchValueInput);
 
-        $page = intval($request->get('page'));
-
-        dump($page);
-        $startIndex = ($page - 1 )* 10;
-
-        $client = new \GuzzleHttp\Client();
-        $uri = 'https://www.googleapis.com/books/v1/volumes?q='. $searchValue .'&startIndex='. $startIndex . '&projection=full&key=AIzaSyBS73RyaRRGdoFBLYdSSRGJPNGMigyggr8';
-
-        #dump($uri);
-        $res = $client->request('GET', $uri);
-        $jsonObj = json_decode($res->getBody());
+        $page = intval($request->get('p'));
+        if ($page < 1)
+            $page = 1;
 
         $books = array();
-
-        for ($i = 0; $i < count($jsonObj->items); $i++){
-            $jsonResult = $jsonObj->items[$i]->volumeInfo;
-            $book = new Book();
-            $book->loadJsonData($jsonResult);
-            $books[$i] = $book;
-        }
-
-
         $pages = array();
+        $endPage =0;
 
-        $numberPages = $jsonObj->totalItems/10;
+        if ($searchValue != ''){
+            $startIndex = ($page - 1 )* 10;
 
-        $startingPage = $page - 5;
+            $client = new \GuzzleHttp\Client();
+            $uri = 'https://www.googleapis.com/books/v1/volumes?q='. $searchValue .'&startIndex='. $startIndex . '&projection=full&key=AIzaSyBS73RyaRRGdoFBLYdSSRGJPNGMigyggr8';
 
-        if ($startingPage < 1){
-            $startingPage = 1;
+            #dump($uri);
+            $res = $client->request('GET', $uri);
+            $jsonObj = json_decode($res->getBody());
+
+
+
+            for ($i = 0; $i < count($jsonObj->items); $i++){
+                $jsonResult = $jsonObj->items[$i]->volumeInfo;
+                $book = new Book();
+                $book->loadJsonData($jsonResult);
+                $books[$i] = $book;
+            }
+
+
+
+
+            $numberPages = $jsonObj->totalItems/10;
+
+            $startingPage = $page - 5;
+
+            if ($startingPage < 1){
+                $startingPage = 1;
+            }
+
+            $endPage = $startingPage+10;
+            if ($endPage > $numberPages){
+                $endPage = $numberPages;
+            }
+
+            for ($i = $startingPage; $i <= $endPage; $i++){
+                $pages[$i] = $i;
+            }
         }
-
-        $endPage = $startingPage+10;
-        if ($endPage > $numberPages){
-            $endPage = $numberPages;
-        }
-
-        for ($i = $startingPage; $i <= $endPage; $i++){
-            $pages[$i] = $i;
-        }
-
-
 
         return $this->render('BookReviewBundle:BookApi:index.html.twig', array(
             'books' => $books,
@@ -71,15 +79,7 @@ class BookApiController extends Controller
         ));
     }
 
-    /**
-     * @Route("/event")
-     */
-    public function eventAction()
-    {
-        return $this->render('BookReviewBundle:BookApi:event.html.twig', array(
-            // ...
-        ));
-    }
+
 
     /**
      * @Route("/talks")
