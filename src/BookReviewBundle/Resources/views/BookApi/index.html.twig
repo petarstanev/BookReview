@@ -4,12 +4,19 @@
     <h1>Book API Search</h1>
     <div class="container">
         <form action="/googleapi/search" method="post">
-            {% if searchValue %}
-                <input type="text" value="{{ searchValue }}" name="searchText">
-            {% else %}
-                <input type="text" name="searchText">
-            {% endif %}
-            <input type="submit" value="Search" />
+
+            <div class="input-group">
+                {% if searchValue %}
+                    <input type="text" class="form-control" placeholder="Search" value="{{ searchValue }}" name="searchText">
+                {% else %}
+                    <input type="text" class="form-control" placeholder="Search" name="searchText">
+                {% endif %}
+
+
+                <div class="input-group-btn">
+                    <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i> Search</button>
+                </div>
+            </div>
         </form>
 
 
