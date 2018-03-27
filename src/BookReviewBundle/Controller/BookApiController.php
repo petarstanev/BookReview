@@ -16,42 +16,58 @@ class BookApiController extends Controller
      */
     public function searchAction(Request $request)
     {
-        $searchValue = $request->get('value');
-        $searchValue = str_replace(' ', '+', $searchValue);
+        $searchValueInput = $request->get('value');
+        $searchValue = str_replace(' ', '+', $searchValueInput);
 
         $page = intval($request->get('page'));
 
         dump($page);
+        $startIndex = ($page - 1 )* 10;
 
         $client = new \GuzzleHttp\Client();
+        $uri = 'https://www.googleapis.com/books/v1/volumes?q='. $searchValue .'&startIndex='. $startIndex . '&projection=full&key=AIzaSyBS73RyaRRGdoFBLYdSSRGJPNGMigyggr8';
 
-        if ($page == 1){
-            $uri = 'https://www.googleapis.com/books/v1/volumes?q='. $searchValue .'&projection=full&key=AIzaSyBS73RyaRRGdoFBLYdSSRGJPNGMigyggr8';
-        }else{
-
-            $startIndex = ($page - 1 )* 10;
-            $uri = 'https://www.googleapis.com/books/v1/volumes?q='. $searchValue .'&startIndex='. $startIndex . '&projection=full&key=AIzaSyBS73RyaRRGdoFBLYdSSRGJPNGMigyggr8';
-        }
         #dump($uri);
         $res = $client->request('GET', $uri);
-
         $jsonObj = json_decode($res->getBody());
 
         $books = array();
 
         for ($i = 0; $i < count($jsonObj->items); $i++){
             $jsonResult = $jsonObj->items[$i]->volumeInfo;
-
             $book = new Book();
             $book->loadJsonData($jsonResult);
             $books[$i] = $book;
         }
 
 
+        $pages = array();
+
+        $numberPages = $jsonObj->totalItems/10;
+
+        $startingPage = $page - 5;
+
+        if ($startingPage < 1){
+            $startingPage = 1;
+        }
+
+        $endPage = $startingPage+10;
+        if ($endPage > $numberPages){
+            $endPage = $numberPages;
+        }
+
+        for ($i = $startingPage; $i <= $endPage; $i++){
+            $pages[$i] = $i;
+        }
+
 
 
         return $this->render('BookReviewBundle:BookApi:index.html.twig', array(
-            'books' => $books
+            'books' => $books,
+            'pages' => $pages,
+            'selectedPage' => $page,
+            'searchValue' => $searchValueInput,
+            'endPage' => $endPage
         ));
     }
 
