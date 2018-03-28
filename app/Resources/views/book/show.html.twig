@@ -19,6 +19,21 @@
                     {% if book.reviews|length > 0 %}
                         <b><p>Average Rating: {{  (sumratings / book.reviews|length)|number_format(2, '.', ',') }}</p></b>
                     {% endif %}
+                    <div class="well">
+                        <h4>Information from Google</h4>
+
+
+
+                        <p>Publisher - {{ googlebook.publisher }} </p>
+                        <p>Published date - {{ googlebook.publishedDate }} </p>
+                        <p>ISBN 10 - {{ googlebook.isbnTen }} </p>
+                        <p>ISBN 13 - {{ googlebook.isbnThirteen }} </p>
+                        <p>Number of pages - {{ googlebook.pages }} </p>
+
+                        <p><a href="{{ path('api_details', { 'id': googlebook.googleId }) }}"><h4> Link to the google book internal</h4></a></p>
+                        <p><a href="https://books.google.co.uk/books?id={{  googlebook.googleId }}"><h4> Link to the google book external</h4></a></p>
+                    </div>
+
                 </div>
                 <div class="col-md-6">
                     <h2 class="text-center">Reviews</h2>

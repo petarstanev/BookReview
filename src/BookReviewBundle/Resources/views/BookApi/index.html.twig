@@ -19,11 +19,10 @@
             </div>
         </form>
 
-
         {% for book in books %}
             <div class="row">
                 <div class="col-md-6 well">
-                    <a href="{{ path('book_show', { 'id': book.id }) }}"><h2>{{ book.title }}</h2></a>
+                    <a href="{{ path('api_details', { 'id': book.googleId }) }}"><h2>{{ book.title }}</h2></a>
                     <h3>{{ book.author }}</h3>
                     {% if book.imageName is not empty %}
                         {% if book.imageFile is empty %}

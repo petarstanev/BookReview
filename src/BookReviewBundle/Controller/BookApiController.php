@@ -2,7 +2,9 @@
 
 namespace BookReviewBundle\Controller;
 
+use Beta\B;
 use BookReviewBundle\Entity\Book;
+use BookReviewBundle\Entity\GoogleBook;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,20 +42,14 @@ class BookApiController extends Controller
             $res = $client->request('GET', $uri);
             $jsonObj = json_decode($res->getBody());
 
-
-
             for ($i = 0; $i < count($jsonObj->items); $i++){
-                $jsonResult = $jsonObj->items[$i]->volumeInfo;
-                $book = new Book();
-                $book->loadJsonData($jsonResult);
+                $book = new GoogleBook();
+                $book->loadJsonData($jsonObj->items[$i]);
                 $books[$i] = $book;
             }
 
 
-
-
             $numberPages = $jsonObj->totalItems/10;
-
             $startingPage = $page - 5;
 
             if ($startingPage < 1){
@@ -76,6 +72,25 @@ class BookApiController extends Controller
             'selectedPage' => $page,
             'searchValue' => $searchValueInput,
             'endPage' => $endPage
+        ));
+    }
+
+    public function detailsAction($id){
+        $client = new \GuzzleHttp\Client();
+        $uri = 'https://www.googleapis.com/books/v1/volumes/'. $id;
+
+        #dump($uri);
+        $res = $client->request('GET', $uri);
+        $jsonObj = json_decode($res->getBody());
+        $book = new GoogleBook();
+
+
+        $book->loadJsonData($jsonObj);
+
+
+        
+        return $this->render('BookReviewBundle:BookApi:details.html.twig', array(
+            'book' => $book
         ));
     }
 

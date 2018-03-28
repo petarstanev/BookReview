@@ -5,7 +5,9 @@ namespace BookReviewBundle\Controller;
 use BookReviewBundle\Entity\Book;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use BookReviewBundle\Entity\GoogleBook;
 
 /**
  * Book controller.
@@ -107,8 +109,29 @@ class BookController extends Controller
     {
         $deleteForm = $this->createDeleteForm($book);
 
+        $client = new \GuzzleHttp\Client();
+        $uri = 'https://www.googleapis.com/books/v1/volumes?q='. $book->getTitle() .'&projection=full&key=AIzaSyBS73RyaRRGdoFBLYdSSRGJPNGMigyggr8';
+
+        dump($uri);
+        $res = $client->request('GET', $uri);
+        $jsonObj = json_decode($res->getBody());
+        $googleBookId = $jsonObj->items[0]->id;
+
+        $uri = 'https://www.googleapis.com/books/v1/volumes/'. $googleBookId;
+
+        $res = $client->request('GET', $uri);
+        $jsonObj = json_decode($res->getBody());
+
+
+
+        $googleBook = new GoogleBook();
+        $googleBook->loadJsonData($jsonObj);
+
+
+
         return $this->render('book/show.html.twig', array(
             'book' => $book,
+            'googlebook'=>$googleBook,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -130,6 +153,8 @@ class BookController extends Controller
 
             return $this->redirectToRoute('book_show', array('id' => $book->getId()));
         }
+
+
 
         return $this->render('book/edit.html.twig', array(
             'book' => $book,

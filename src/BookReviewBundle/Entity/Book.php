@@ -259,7 +259,15 @@ class Book
         return $this->imageName;
     }
 
-    public function loadJsonData($json){
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    protected function loadVolumeInfo($json){
         $this->setTitle($json->title);
         if(isset($json->authors))
             $this->setAuthor(implode(", ",$json->authors));

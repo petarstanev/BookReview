@@ -1,0 +1,46 @@
+{% extends "::base.html.twig" %}
+
+
+{% block body %}
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>{{ book.title }}</h1>
+                    <h2>{{ book.author }}</h2>
+                    {% if book.imageName is not empty %}
+                        {% if book.imageFile is empty %}
+                            <img class="img-responsive book-image" src="{{ book.imageName }}" alt="{{ book.title }}" />
+                        {% else %}
+                            <img class="img-responsive book-image" src="{{ vich_uploader_asset(book, 'imageFile') }}" alt="{{ book.title }}" />
+                        {% endif %}
+                    {% endif %}
+                    <p> {{ book.summary }} </p>
+                    <p>Publisher - {{ book.publisher }} </p>
+                    <p>Published date - {{ book.publishedDate }} </p>
+                    <p>ISBN 10 - {{ book.isbnTen }} </p>
+                    <p>ISBN 13 - {{ book.isbnThirteen }} </p>
+                    <p>Number of pages - {{ book.pages }} </p>
+
+                    {% set sumratings = 0 %}
+                    {% for review in book.reviews %}
+                        {% set sumratings = sumratings + review.rating %}
+                    {% endfor %}
+                    {% if book.reviews|length > 0 %}
+                        <b><p>Average Rating: {{  (sumratings / book.reviews|length)|number_format(2, '.', ',') }}</p></b>
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                    <h2 class="text-center">Reviews</h2>
+                    {% for review in book.reviews %}
+                        <blockquote>
+                            <p><a href="{{ path('review_show', { 'id': review.id }) }}" class="">{{ review.comment }}</a><br/><small>Rating: {{ review.rating }}</small></p>
+                            <footer>User: {{ review.user }}</footer>
+                        </blockquote>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
