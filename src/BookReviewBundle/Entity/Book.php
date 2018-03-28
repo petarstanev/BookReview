@@ -74,7 +74,7 @@ class Book
     private $imageFile;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=1024, nullable=true)
      * @JMS\Exclude
      * @var string
      */
@@ -267,14 +267,23 @@ class Book
         $this->id = $id;
     }
 
-    protected function loadVolumeInfo($json){
+    public function loadVolumeInfo($json){
         $this->setTitle($json->title);
-        if(isset($json->authors))
+        if(isset($json->authors)){
             $this->setAuthor(implode(", ",$json->authors));
-        if(isset($json->description))
+        }else{
+            $this->setAuthor("");
+        }
+        if(isset($json->description)){
             $this->setSummary($json->description);
-        if(isset($json->imageLinks))
+        }else{
+            $this->setSummary("");
+        }
+        if(isset($json->imageLinks)) {
             $this->setImageName($json->imageLinks->thumbnail);
+        }else{
+            $this->setImageName("");
+        }
         $this->id = 0;
     }
 }

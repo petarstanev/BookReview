@@ -13,6 +13,11 @@ book_new:
     defaults: { _controller: "BookReviewBundle:Book:new" }
     methods:  [GET, POST]
 
+book_newpopulate:
+    path:     /newpopulate
+    defaults: { _controller: "BookReviewBundle:Book:newPopulate" }
+    methods:  [GET, POST]
+
 book_edit:
     path:     /{id}/edit
     defaults: { _controller: "BookReviewBundle:Book:edit" }

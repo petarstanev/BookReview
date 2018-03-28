@@ -100,6 +100,42 @@ class BookController extends Controller
     }
 
     /**
+     * Creates a new book autopopulate.
+     *
+     * @Route("/newpopulate", name="book_new")
+     * @Method({"GET", "POST"})
+     */
+    public function newPopulateAction(Request $request)
+    {
+        $book = new Book();
+        $form = $this->createForm('BookReviewBundle\Form\BookTypePopulate', $book);
+        $form->handleRequest($request);
+
+        $currentUser = $this->getUser();
+        $book->setUser($currentUser);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $jsonObj = $this->PopulateGoogleBookData($book);
+            $book->loadVolumeInfo($jsonObj->volumeInfo);
+
+
+            $em = $this->getDoctrine()->getManager();
+            dump($jsonObj->volumeInfo);
+            $em->persist($book);
+            $em->flush();
+
+            return $this->redirectToRoute('book_show', array('id' => $book->getId()));
+        }
+
+        return $this->render('book/new.html.twig', array(
+            'book' => $book,
+            'form' => $form->createView(),
+        ));
+    }
+
+
+    /**
      * Finds and displays a book entity.
      *
      * @Route("/{id}", name="book_show")
@@ -108,21 +144,7 @@ class BookController extends Controller
     public function showAction(Book $book)
     {
         $deleteForm = $this->createDeleteForm($book);
-
-        $client = new \GuzzleHttp\Client();
-        $uri = 'https://www.googleapis.com/books/v1/volumes?q='. $book->getTitle() .'&projection=full&key=AIzaSyBS73RyaRRGdoFBLYdSSRGJPNGMigyggr8';
-
-        dump($uri);
-        $res = $client->request('GET', $uri);
-        $jsonObj = json_decode($res->getBody());
-        $googleBookId = $jsonObj->items[0]->id;
-
-        $uri = 'https://www.googleapis.com/books/v1/volumes/'. $googleBookId;
-
-        $res = $client->request('GET', $uri);
-        $jsonObj = json_decode($res->getBody());
-
-
+        $jsonObj = $this->PopulateGoogleBookData($book);
 
         $googleBook = new GoogleBook();
         $googleBook->loadJsonData($jsonObj);
@@ -215,5 +237,26 @@ class BookController extends Controller
         return $this->render('book/index.html.twig', array(
             'books' => $result,
         ));
+    }
+
+    /**
+     * @param Book $book
+     * @return mixed
+     */
+    public function PopulateGoogleBookData(Book $book)
+    {
+        $client = new \GuzzleHttp\Client();
+        $uri = 'https://www.googleapis.com/books/v1/volumes?q=' . $book->getTitle() . '&projection=full&key=AIzaSyBS73RyaRRGdoFBLYdSSRGJPNGMigyggr8';
+
+        dump($uri);
+        $res = $client->request('GET', $uri);
+        $jsonObj = json_decode($res->getBody());
+        $googleBookId = $jsonObj->items[0]->id;
+
+        $uri = 'https://www.googleapis.com/books/v1/volumes/' . $googleBookId;
+
+        $res = $client->request('GET', $uri);
+        $jsonObj = json_decode($res->getBody());
+        return $jsonObj;
     }
 }
