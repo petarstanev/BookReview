@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Authcodes list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for authCode in authCodes %}
+            <tr>
+                <td><a href="{{ path('authcode_show', { 'id': authCode.id }) }}">{{ authCode.id }}</a></td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('authcode_show', { 'id': authCode.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('authcode_edit', { 'id': authCode.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('authcode_new') }}">Create a new authCode</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,15 +1,12 @@
+book_review_auth_code:
+    resource: "@BookReviewBundle/Controller/AuthCodeController.php"
+    type:     annotation
+
+book_review_client:
+    resource: "@BookReviewBundle/Controller/ClientController.php"
+    type:     annotation
+
 # app/config/routing.yml
-hwi_oauth_redirect:
-    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
-    prefix:   /connect
-
-hwi_oauth_connect:
-    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
-    prefix:   /connect
-
-hwi_oauth_login:
-    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
-    prefix:   /login
 
 github_login:
     path: /connect/check-github
@@ -43,3 +40,7 @@ find:
     path:     /
     defaults: { _controller: "BookReviewBundle:Book:index" }
 
+
+
+fos_oauth_server_token:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
