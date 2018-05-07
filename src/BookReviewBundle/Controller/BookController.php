@@ -29,7 +29,6 @@ class BookController extends Controller
         $searchValue = $request->get('searchValue');
         #$typeValue = $request->get('typeValue');
 
-        #dump($typeValue);
 
         if($searchValue != NULL) {
             $books= $em->getRepository("BookReviewBundle:Book")->createQueryBuilder('o')

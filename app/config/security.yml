@@ -15,7 +15,19 @@ security:
             pattern: ^/oauth/v2/token
             security: false
         api:
-            pattern: ^/                                # All URLs are protected
+            pattern: ^/api                                # All URLs are protected
             fos_oauth: true                            # OAuth2 protected resource
             stateless: true                            # Do no set session cookies
             anonymous: false                           # Anonymous access is not allowed
+        main:
+            pattern: ^/
+            form-login:
+                provider:       fos_userbundle
+                login_path:     /login
+                use_forward:    false
+                check_path:     /login_check
+                failure_path:   null
+            logout:
+                path:   /logout
+                target: /
+            anonymous:    true

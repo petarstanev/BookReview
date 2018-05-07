@@ -6,7 +6,10 @@ book_review_review:
         resource: "@BookReviewBundle/Resources/config/routing/review.yml"
         prefix:   /review
 
-
 book_user_api:
         resource: "@BookReviewBundle/Resources/config/routing/googleapi.yml"
         prefix:   /googleapi
+
+book_user_oath:
+        resource: "@BookReviewBundle/Resources/config/routing/oath.yml"
+        prefix:   /useroath

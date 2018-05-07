@@ -27,11 +27,8 @@ class User extends BaseUser
      */
     protected $id;
 
-    /** @ORM\Column(name="github_id", type="string", length=255, nullable=true) */
-    protected $github_id;
-
-    /** @ORM\Column(name="github_access_token", type="string", length=255, nullable=true) */
-    protected $github_access_token;
+    /** @ORM\Column(name="access_token", type="string", length=255, nullable=true) */
+    protected $access_token;
 
     /**
      * @ORM\OneToMany(targetEntity="BookReviewBundle\Entity\Review", mappedBy="user")
