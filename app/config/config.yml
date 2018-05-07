@@ -117,22 +117,3 @@ jms_serializer:
                 namespace_prefix: "FOS\\UserBundle"
                 path: "@BookReviewBundle/Resources/config/serializer"
 
-hwi_oauth:
-    # Define which firewalls will be used for oauth
-    # Usually, its only the main, but you can add it if you have a custom one
-    firewall_names: ["main"]
-    fosub:
-        username_iterations: 30
-        # Define in which columns of the fos_user table will be stored
-        # the access token of every resource_owner
-        properties:
-            github: github_id
-    # Define the resource_owners that your user can use to login into your app
-    # Note that the client_id and client_secret and key values are symfony parameters
-    # stored too in the config.yml from the previous step !
-    resource_owners:
-        github:
-            type:           github
-            client_id:      "%github_client_id%"
-            client_secret:  "%github_secret%"
-            scope: 'user:email,public_repo'

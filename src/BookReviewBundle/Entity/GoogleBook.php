@@ -7,6 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 use JMS\Serializer\Annotation as JMS;
+use GuzzleHttp;
+use GuzzleHttp\Client;
 
 class GoogleBook extends Book
 {
@@ -17,6 +19,39 @@ class GoogleBook extends Book
     private $isbnThirteen;
     private $pages;
     private $categories;
+    private $shortGoogleUrl;
+
+    /**
+     * @return mixed
+     */
+    public function getShortGoogleUrl()
+    {
+        return $this->shortGoogleUrl;
+    }
+
+    /**
+     * @param mixed $shortGoogleUrl
+     */
+    public function setShortGoogleUrl($shortGoogleUrl)
+    {
+        $this->shortGoogleUrl = $shortGoogleUrl;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getShortUrl()
+    {
+        return $this->shortUrl;
+    }
+
+    /**
+     * @param mixed $shortUrl
+     */
+    public function setShortUrl($shortUrl)
+    {
+        $this->shortUrl = $shortUrl;
+    }
 
     /**
      * @return mixed
@@ -168,6 +203,30 @@ class GoogleBook extends Book
 
         if(isset($volumeInfoJson->categories))
             $this->setCategories(implode("|",$volumeInfoJson->categories));
+
+
+        $googleBooksUrl = "https://books.google.co.uk/books?id=";
+        $this->setShortGoogleUrl($this->shortUrl($googleBooksUrl . $this->googleId));
     }
+
+    /**
+     * @param Book $book
+     * @return mixed
+     */
+    public function shortUrl($longUrl)
+    {
+        $client = new Client();
+
+        $url = "https://www.googleapis.com/urlshortener/v1/url?key=AIzaSyC5IdpPmYuCG21fT2UWIvaamgZOB4etZyk";
+        //var_dump($longUrl);
+        $response = $client->post($url, [
+            GuzzleHttp\RequestOptions::JSON => ['longUrl' => $longUrl]
+        ]);
+
+        $jsonObj = json_decode($response->getBody());
+
+        return $jsonObj->id;
+    }
+
 }
 
