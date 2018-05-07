@@ -83,12 +83,7 @@ class BookApiController extends Controller
         $res = $client->request('GET', $uri);
         $jsonObj = json_decode($res->getBody());
         $book = new GoogleBook();
-
-
         $book->loadJsonData($jsonObj);
-
-
-        
         return $this->render('BookReviewBundle:BookApi:details.html.twig', array(
             'book' => $book
         ));

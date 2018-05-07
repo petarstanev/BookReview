@@ -30,7 +30,9 @@
                         <b><p>Average Rating: {{  (sumratings / book.reviews|length)|number_format(2, '.', ',') }}</p></b>
                     {% endif %}
                 </div>
+
                 <div class="col-md-6">
+                    {% if book.reviews.count > 0 %}
                     <h2 class="text-center">Reviews</h2>
                     {% for review in book.reviews %}
                         <blockquote>
@@ -38,7 +40,9 @@
                             <footer>User: {{ review.user }}</footer>
                         </blockquote>
                     {% endfor %}
+                    {% endif %}
                 </div>
+
             </div>
 
         </div>
