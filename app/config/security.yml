@@ -39,4 +39,3 @@ security:
         - { path: ^/review/[0-9]+/delete, role: ROLE_MODERATOR}
 
         - { path: ^/admin, role: ROLE_ADMIN}
-        - { path: ^/api, role: IS_AUTHENTICATED_FULLY }
