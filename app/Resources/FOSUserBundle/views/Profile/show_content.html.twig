@@ -3,7 +3,7 @@
 <div class="fos_user_user_show">
     <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
     <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
-    <p>Github id: {{ user.getGithubId }}</p>
-    <p>Github access token: {{ user.getGithubAccessToken }}</p>
+    <p>OATH access code: {{ user.accesstokencode }}</p>
+    <a href="{{ path('user_security') }}" class="btn btn-warning">Get access code</a>
     <a href="{{ path('fos_user_profile_edit') }}" class="btn btn-info">Edit profile</a>
 </div>

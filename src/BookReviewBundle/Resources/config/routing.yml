@@ -10,3 +10,9 @@ book_review_review:
 book_user_api:
         resource: "@BookReviewBundle/Resources/config/routing/googleapi.yml"
         prefix:   /googleapi
+
+
+user_security:
+    path:     /generateoath
+    defaults: { _controller: "BookReviewBundle:User:generateoath" }
+    methods:  [GET, POST]
