@@ -30,3 +30,5 @@ find:
     path:     /
     defaults: { _controller: "BookReviewBundle:Book:index" }
 
+fos_oauth_server_token:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"

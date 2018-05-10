@@ -107,6 +107,7 @@ easy_admin:
 fos_rest:
     routing_loader:
         default_format: json
+        include_format: false
 
 jms_serializer:
     metadata:
@@ -117,3 +118,11 @@ jms_serializer:
                 namespace_prefix: "FOS\\UserBundle"
                 path: "@BookReviewBundle/Resources/config/serializer"
 
+fos_oauth_server:
+    db_driver:           orm
+    client_class:        BookReviewBundle\Entity\Client
+    access_token_class:  BookReviewBundle\Entity\AccessToken
+    refresh_token_class: BookReviewBundle\Entity\RefreshToken
+    auth_code_class:     BookReviewBundle\Entity\AuthCode
+    service:
+        user_provider: fos_user.user_provider.username
