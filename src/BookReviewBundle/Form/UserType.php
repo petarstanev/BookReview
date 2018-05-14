@@ -18,7 +18,7 @@ class UserType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('username')->add('password');
+        $builder->add('username')->add('password', 'Symfony\Component\Form\Extension\Core\Type\PasswordType');
     }
     /**
      * {@inheritdoc}
